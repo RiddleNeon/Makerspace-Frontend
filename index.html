@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    html,
+    body {
+      background-color: #121212 !important;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <link rel="stylesheet" href="src/style.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200..800&family=Geo:ital@0;1&family=Kelly+Slab&family=Protest+Guerrilla&family=Rampart+One&family=Rubik+Vinyl&family=Tektur:wght@400..900&display=swap"
+    rel="stylesheet">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makerspace - Homepage</title>
+</head>
+
+<body>
+  <div id="app">
+    <section id="top-nav-bar">
+      <ul>
+        <li><a href="/">Home</a></li>
+
+        <li class="about">
+          <a href="/about-us">Über uns</a>
+
+          <ul class="submenu">
+            <li><a href="/our-setup">Unser Setup</a></li>
+            <li><a href="/projects">Unsere Projekte</a></li>
+          </ul>
+        </li>
+
+        <li class="optional-nav setup">
+          <a href="/our-setup">Unser Setup</a>
+        </li>
+
+        <li class="optional-nav projects">
+          <a href="/projects">Unsere Projekte</a>
+        </li>
+
+        <li class="spacer">
+          <h1>Makerspace</h1>
+        </li>
+
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Registrieren</a></li>
+      </ul>
+
+
+      <svg class="gear" aria-hidden="true" data-size="256" data-x="0" data-y="110%" data-speed_multiplier="0.01"
+        data-circuit_id="0">
+        <use href="/cogwheels1.svg#cog1"></use>
+      </svg>
+
+      <svg class="gear" aria-hidden="true" data-size="40" data-x="134" data-y="calc(110% + 49px)"
+        data-speed_multiplier="-0.0563" data-circuit_id="0">
+        <use href="/cogwheels1.svg#cog2"></use>
+      </svg>
+
+
+      <svg class="gear" aria-hidden="true" data-size="256" data-x="100%" data-y="90%" data-speed_multiplier="0.01"
+        data-circuit_id="1">
+        <use href="/cogwheels1.svg#cog1"></use>
+      </svg>
+
+    </section>
+
+
+
+
+    <section id="center">
+      <div class="hero"> <!-- TODO: add imgs here -->
+      </div>
+    </section>
+
+
+
+
+    <section id="socials">
+      <div id="social">
+        Join the community
+        <ul>
+          <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation"
+                aria-hidden="true">
+                <use href="/icons.svg#github-icon"></use>
+              </svg>GitHub</a></li> <!-- TODO: use working links -->
+          <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation"
+                aria-hidden="true">
+                <use href="/icons.svg#discord-icon"></use>
+              </svg>Discord</a></li>
+        </ul>
+      </div>
+
+    </section>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

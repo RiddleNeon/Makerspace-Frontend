@@ -1,0 +1,15 @@
+.gear {
+  --size: 0;
+  position: absolute;
+
+  width: var(--size);
+  height: var(--size);
+
+  left: var(--x);
+  top: var(--y);
+
+  transform: translate(-50%, -50%) rotate(var(--angle));
+  transform-origin: center;
+
+  z-index: -1;
+}
