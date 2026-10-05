@@ -1,0 +1,328 @@
+#auth2 {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+#auth-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  pointer-events: none;
+}
+
+#auth-content {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+
+#auth-popup {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 450px;
+  padding: 70px 65px;
+
+  box-sizing: border-box;
+
+  pointer-events: auto;
+
+  background: var(--accent-bg);
+
+  clip-path: polygon(28% 99%, 9% 100%, 2% 99%, 0% 90%,
+      2% 70%, 0% 50%, 1% 30%, 0% 16%,
+      3% 0%, 9% 0%, 27% 1%, 38% 0%,
+      51% 0%, 68% 2%, 76% 0%, 90% 1%,
+      97% 1%, 100% 7%, 100% 18%, 99% 23%,
+      100% 39%, 99% 48%, 100% 66%, 97% 82%,
+      100% 96%, 90% 100%, 72% 100%, 46% 100%);
+}
+
+
+#auth-popup form {
+  width: 100%;
+}
+
+#auth-popup h1 {
+  margin: 0 0 45px;
+
+  color: var(--text-h);
+
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+#register-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text);
+}
+
+#register-button:hover {
+  color: var(--text-h);
+}
+
+#register-button:active {
+  color: var(--text);
+}
+
+
+.auth-field {
+  position: relative;
+
+  width: 100%;
+
+  margin-bottom: 32px;
+}
+
+.auth-field input {
+  display: block;
+
+  width: 100%;
+  height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 28px 0;
+
+  background: transparent;
+  color: var(--text-h);
+
+  border: none;
+  border-bottom: 2px solid var(--border);
+
+  outline: none;
+
+  font-size: 16px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.auth-field input:focus {
+  border-bottom-color: var(--accent);
+
+  box-shadow:
+    0 2px 0 var(--accent);
+}
+
+
+
+.auth-field label {
+  position: absolute;
+
+  left: 0;
+  top: 21px;
+
+  color: var(--text);
+
+  font-size: 16px;
+  line-height: 1;
+
+  pointer-events: none;
+
+  transform-origin: left center;
+
+  transition:
+    top 0.14s ease,
+    font-size 0.14s ease,
+    color 0.14s ease;
+}
+
+
+.auth-field input:focus+label {
+  top: 0px;
+
+  color: var(--accent);
+
+  font-size: 12px;
+}
+
+
+.auth-field input:not(:placeholder-shown)+label {
+  top: 0px;
+
+  font-size: 12px;
+}
+
+
+#auth-input-section {
+  padding: 32px;
+}
+
+
+#auth-login-button {
+  display: block;
+
+  width: 100%;
+  height: 46px;
+
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--accent);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 15px var(--accent-bg);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+
+/* Hover */
+#auth-login-button:hover {
+  filter: brightness(1.08);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px var(--accent-bg);
+}
+
+
+/* Click */
+#auth-login-button:active {
+  transform: translateY(1px);
+
+  box-shadow:
+    0 3px 8px var(--accent-bg);
+}
+
+
+/* Keyboard focus */
+#auth-login-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* =========================
+   Google / secondary button
+   ========================= */
+
+#auth-google-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 44px;
+
+  margin-top: 18px;
+
+  gap: 10px;
+
+  background: var(--bg);
+  color: var(--text-h);
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+#auth-google-button:hover {
+  background: var(--code-bg);
+
+  border-color: var(--accent);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#auth-google-button:active {
+  transform: translateY(1px);
+}
+
+
+/* =========================
+   Divider
+   ========================= */
+
+.auth-divider {
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  margin: 28px 0;
+
+  gap: 12px;
+
+  color: var(--text);
+
+  font-size: 12px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: var(--border);
+}
+
+
+/* =========================
+   Gears
+   ========================= */
+
+#auth-gears {
+  z-index: -2;
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 450px;
+  height: 450px;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+#auth-gears .gear {
+  pointer-events: auto;
+}

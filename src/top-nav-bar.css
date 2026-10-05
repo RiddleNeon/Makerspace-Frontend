@@ -51,7 +51,7 @@
   }
 
   &:not(:first-child) {
-    margin-left: calc(var(--angle) * -1);
+    margin-left: calc(var(--angle) * -1 - 1px);
   }
 
   &.about {

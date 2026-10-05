@@ -11,5 +11,5 @@
   transform: translate(-50%, -50%) rotate(var(--angle));
   transform-origin: center;
 
-  z-index: -1;
+  z-index: -10;
 }

@@ -1,4 +1,3 @@
-
 const gears = document.querySelectorAll<SVGSVGElement>(".gear");
 
 const startTime = performance.now();
