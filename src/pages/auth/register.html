@@ -1,0 +1,81 @@
+<div id="auth-content">
+  <div id="auth-popup">
+    <h2 id="auth-title">Registrieren (1/2)</h2>
+
+    <div id="auth-input-section">
+      <!-- Schritt 1: Zugangsdaten -->
+      <div class="auth-step step-1">
+        <form id="register-form" autocomplete="on">
+          <div class="auth-field">
+            <input id="email" name="username" type="email" placeholder=" " autocomplete="section-register username"
+              required />
+            <label for="email">E-Mail-Adresse</label>
+          </div>
+
+          <div class="auth-field">
+            <input id="password" name="new-password" type="password" placeholder=" "
+              autocomplete="section-register new-password" required />
+            <label for="password">Passwort</label>
+          </div>
+
+          <div class="auth-field">
+            <input id="password-confirmation" name="new-password-confirmation" type="password" placeholder=" "
+              autocomplete="section-register new-password" required />
+            <label for="password-confirmation">
+              Passwort-Wiederholung
+            </label>
+          </div>
+        </form>
+      </div>
+
+      <div class="auth-step step-2" hidden>
+        <div class="auth-field">
+          <input id="name" name="name" type="text" placeholder=" " autocomplete="name" />
+          <label for="name">Vollständiger Name</label>
+        </div>
+
+        <button type="button" id="back-button" class="secondary-button">Zurück</button>
+      </div>
+
+      <div id="error-section"></div>
+
+      <button type="submit" id="auth-submit-button">Weiter</button>
+    </div>
+
+    <p>
+      Du hast schon einen Account?
+      <button type="button" id="switch-button"><a href="/login">Einloggen</a></button>
+    </p>
+
+    <svg class="gear" aria-hidden="true" data-size="120" data-x="90%" data-y="-30px" data-speed_multiplier="0.0063"
+      data-circuit_id="-4">
+      <use href="/cogwheels1.svg#cog1"></use>
+    </svg>
+  </div>
+
+  <div id="auth-gears">
+    <svg class="gear" aria-hidden="true" data-size="60" data-x="96.5%" data-y="20%" data-speed_multiplier="-0.0563"
+      data-circuit_id="-3">
+
+      <use href="/cogwheels1.svg#cog2"></use>
+
+    </svg>
+
+
+    <svg class="gear" aria-hidden="true" data-size="60" data-x="97%" data-y="99%" data-speed_multiplier="0.02885"
+      data-circuit_id="-3">
+
+      <use href="/cogwheels1.svg#cog2"></use>
+
+    </svg>
+
+
+
+    <svg class="gear" aria-hidden="true" data-size="140" data-x="10px" data-y="calc(100% - 90px)"
+      data-speed_multiplier="-0.0263" data-circuit_id="-4">
+
+      <use href="/cogwheels1.svg#cog1"></use>
+
+    </svg>
+  </div>
+</div>

@@ -1,21 +1,7 @@
-#auth2 {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-}
-
-#auth-backdrop {
-  position: absolute;
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.4);
-
-  pointer-events: none;
-}
-
 #auth-content {
   position: absolute;
   inset: 0;
+  z-index: 100;
 
   pointer-events: none;
 }
@@ -48,8 +34,8 @@
 }
 
 
-#auth-popup form {
-  width: 100%;
+#auth-popup>h2 {
+  text-align: center;
 }
 
 #auth-popup h1 {
@@ -62,28 +48,32 @@
   line-height: 1.2;
 }
 
-#register-button {
+#switch-button {
   padding: 0;
   border: none;
   background: none;
-  color: var(--text);
 }
 
-#register-button:hover {
+#switch-button a {
   color: var(--text-h);
 }
 
-#register-button:active {
+#switch-button:hover a {
   color: var(--text);
 }
 
+#switch-button:active a {
+  color: var(--text);
+}
+
+#switch-button a {
+  text-decoration: none;
+}
 
 .auth-field {
   position: relative;
 
   width: 100%;
-
-  margin-bottom: 32px;
 }
 
 .auth-field input {
@@ -144,7 +134,7 @@
 
 
 .auth-field input:focus+label {
-  top: 0px;
+  top: 4px;
 
   color: var(--accent);
 
@@ -153,18 +143,24 @@
 
 
 .auth-field input:not(:placeholder-shown)+label {
-  top: 0px;
+  top: 4px;
+  color: var(--accent);
+
 
   font-size: 12px;
 }
-
 
 #auth-input-section {
   padding: 32px;
 }
 
 
-#auth-login-button {
+#nav-bar-auth-login-button {
+  padding: 32px 32px 32px 32px;
+}
+
+
+#auth-submit-button {
   display: block;
 
   width: 100%;
@@ -193,8 +189,7 @@
 }
 
 
-/* Hover */
-#auth-login-button:hover {
+#auth-submit-button:hover {
   filter: brightness(1.08);
 
   transform: translateY(-1px);
@@ -204,8 +199,7 @@
 }
 
 
-/* Click */
-#auth-login-button:active {
+#auth-submit-button:active {
   transform: translateY(1px);
 
   box-shadow:
@@ -213,67 +207,10 @@
 }
 
 
-/* Keyboard focus */
-#auth-login-button:focus-visible {
+#auth-submit-button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
-
-
-/* =========================
-   Google / secondary button
-   ========================= */
-
-#auth-google-button {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 44px;
-
-  margin-top: 18px;
-
-  gap: 10px;
-
-  background: var(--bg);
-  color: var(--text-h);
-
-  border: 1px solid var(--border);
-  border-radius: 8px;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-#auth-google-button:hover {
-  background: var(--code-bg);
-
-  border-color: var(--accent);
-
-  transform: translateY(-1px);
-
-  box-shadow:
-    0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-#auth-google-button:active {
-  transform: translateY(1px);
-}
-
-
-/* =========================
-   Divider
-   ========================= */
 
 .auth-divider {
   display: flex;
@@ -303,10 +240,6 @@
 }
 
 
-/* =========================
-   Gears
-   ========================= */
-
 #auth-gears {
   z-index: -2;
 
@@ -325,4 +258,93 @@
 
 #auth-gears .gear {
   pointer-events: auto;
+}
+
+#error-section {
+  color: red;
+  font-size: 70%;
+}
+
+
+.auth-step[hidden] {
+  display: none !important;
+}
+
+.auth-step {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-field.select-field {
+  margin-top: 12px;
+}
+
+.auth-field select {
+  display: block;
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  background: transparent;
+  color: var(--text-h);
+  border: none;
+  border-bottom: 2px solid var(--border);
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-field select option {
+  background: var(--accent-bg);
+  color: var(--text-h);
+}
+
+.auth-field select:focus {
+  border-bottom-color: var(--accent);
+  box-shadow: 0 2px 0 var(--accent);
+}
+
+.auth-field select+label {
+  top: 4px;
+  color: var(--accent);
+  font-size: 12px;
+}
+
+#error-section {
+  color: #ff4d4d;
+  font-size: 13px;
+  margin-top: 10px;
+  min-height: 18px;
+}
+
+.auth-field input:-moz-autofill {
+  background-color: transparent !important;
+  -moz-text-fill-color: var(--text-h) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.auth-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-h) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.secondary-button {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.secondary-button:hover {
+  background: var(--border);
+  color: var(--text-h);
 }

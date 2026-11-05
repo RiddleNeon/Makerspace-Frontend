@@ -1,7 +1,48 @@
-const gears = document.querySelectorAll<SVGSVGElement>(".gear");
+export function initGears(root: ParentNode = document) {
+  root.querySelectorAll<SVGSVGElement>(".gear").forEach((gear) => {
+    gear.addEventListener("pointerdown", (event: PointerEvent) => {
+      const circuitIdStr = getCircuitId(gear);
+      const circuitIdNum = Number(circuitIdStr);
+
+      if (!isNaN(circuitIdNum) && circuitIdNum < 0) {
+        return;
+      }
+
+      event.preventDefault();
+
+      draggedGear = gear;
+
+      const circuitState = getCircuitState(circuitIdStr);
+      const currentTime = performance.now() - startTime;
+
+      circuitState.frozenPhase = getCircuitPhase(
+        circuitState,
+        currentTime,
+        circuitIdNum
+      );
+
+      circuitState.paused = true;
+
+      dragStartPointerAngle = getPointerAngle(
+        gear,
+        event.pageX,
+        event.pageY
+      );
+
+      dragStartGearAngle =
+        gearAngles.get(gear) ??
+        circuitState.frozenPhase * getSpeed(gear);
+
+      draggedGearAngle = dragStartGearAngle;
+
+      gear.setPointerCapture(event.pointerId);
+    });
+  });
+}
 
 const startTime = performance.now();
 const resumeDuration = 700;
+const targetTransitionDuration = 85;
 
 type CircuitState = {
   offset: number;
@@ -10,6 +51,11 @@ type CircuitState = {
 
   resumeStartTime?: number;
   resumeFromPhase?: number;
+
+  targetOffset?: number;
+  transitionStartTime?: number;
+  transitionStartOffset?: number;
+  transitionDuration?: number;
 };
 
 const circuitStates = new Map<string, CircuitState>();
@@ -48,6 +94,48 @@ function getCircuitState(circuitId: string): CircuitState {
   return state;
 }
 
+export function advanceCircuit(circuitId: string | number, delta: number, durationMs: number = 85) {
+  const idStr = String(circuitId);
+  const state = getCircuitState(idStr);
+  const currentTime = performance.now() - startTime;
+
+  const currentCalculatedOffset = getCurrentOffset(state, currentTime);
+
+  state.transitionStartOffset = currentCalculatedOffset;
+  state.targetOffset = currentCalculatedOffset + delta;
+  state.transitionStartTime = currentTime;
+  state.transitionDuration = durationMs;
+}
+
+function getCurrentOffset(state: CircuitState, currentTime: number): number {
+  if (
+    state.transitionStartTime !== undefined &&
+    state.targetOffset !== undefined &&
+    state.transitionStartOffset !== undefined
+  ) {
+    const elapsed = currentTime - state.transitionStartTime;
+    const progress = Math.min(elapsed / (state.transitionDuration ?? targetTransitionDuration), 1);
+
+    const smoothProgress =
+      2 * Math.pow(progress, 3) - Math.pow(progress, 4);
+
+    const current =
+      state.transitionStartOffset +
+      (state.targetOffset - state.transitionStartOffset) * smoothProgress;
+
+    if (progress >= 1) {
+      state.transitionStartTime = undefined;
+      state.transitionStartOffset = undefined;
+      state.targetOffset = undefined;
+      state.offset = current;
+    }
+
+    return current;
+  }
+
+  return state.offset;
+}
+
 function getCssLength(value: string | undefined): string {
   if (!value) {
     return "0px";
@@ -76,10 +164,18 @@ function getPointerAngle(
 
 function getCircuitPhase(
   state: CircuitState,
-  currentTime: number
+  currentTime: number,
+  circuitId: number
 ): number {
   if (state.paused) {
     return state.frozenPhase;
+  }
+
+  const effectiveOffset = getCurrentOffset(state, currentTime);
+  const negative = circuitId < 0;
+
+  if (negative) {
+    return effectiveOffset;
   }
 
   if (
@@ -93,7 +189,7 @@ function getCircuitPhase(
       state.resumeStartTime = undefined;
       state.resumeFromPhase = undefined;
 
-      return currentTime + state.offset;
+      return currentTime + effectiveOffset;
     }
 
     const smoothPhase =
@@ -103,22 +199,23 @@ function getCircuitPhase(
     return state.resumeFromPhase + resumeDuration * smoothPhase;
   }
 
-  return currentTime + state.offset;
+  return currentTime + effectiveOffset;
 }
 
-function animate(currentTime: number) {
+function animate(currentTime: number, root: ParentNode = document) {
   const d = currentTime - startTime;
 
-  gears.forEach((gear) => {
+  root.querySelectorAll<SVGSVGElement>(".gear").forEach((gear) => {
     const size = Number(gear.dataset.size ?? 256);
     const x = getCssLength(gear.dataset.x);
     const y = getCssLength(gear.dataset.y);
 
     const speed = getSpeed(gear);
     const circuitId = getCircuitId(gear);
+    const circuitIdNum = Number(circuitId);
     const circuitState = getCircuitState(circuitId);
 
-    const phase = getCircuitPhase(circuitState, d);
+    const phase = getCircuitPhase(circuitState, d, circuitIdNum);
 
     let angle: number;
 
@@ -140,40 +237,6 @@ function animate(currentTime: number) {
 }
 
 requestAnimationFrame(animate);
-
-gears.forEach((gear) => {
-  gear.addEventListener("pointerdown", (event: PointerEvent) => {
-    event.preventDefault();
-
-    draggedGear = gear;
-
-    const circuitId = getCircuitId(gear);
-    const circuitState = getCircuitState(circuitId);
-
-    const currentTime = performance.now() - startTime;
-
-    circuitState.frozenPhase = getCircuitPhase(
-      circuitState,
-      currentTime
-    );
-
-    circuitState.paused = true;
-
-    dragStartPointerAngle = getPointerAngle(
-      gear,
-      event.pageX,
-      event.pageY
-    );
-
-    dragStartGearAngle =
-      gearAngles.get(gear) ??
-      circuitState.frozenPhase * getSpeed(gear);
-
-    draggedGearAngle = dragStartGearAngle;
-
-    gear.setPointerCapture(event.pointerId);
-  });
-});
 
 addEventListener("pointermove", (event: PointerEvent) => {
   if (!draggedGear) {

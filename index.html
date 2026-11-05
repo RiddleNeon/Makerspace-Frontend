@@ -55,18 +55,19 @@
           <h1>Makerspace</h1>
         </li>
 
-        <li><a href="#" id="login-button">Login</a></li>
-        <li><a href="/register">Registrieren</a></li>
+        <li class="logged-in"><a href="/profile">Profil</a></li>
+        <li class="not-logged-in"><a href="/login" id="nav-bar-auth-login-button">Login</a></li>
+        <li class="not-logged-in"><a href="/register">Registrieren</a></li>
       </ul>
 
 
       <svg class="gear" aria-hidden="true" data-size="256" data-x="0" data-y="110%" data-speed_multiplier="0.01"
-        data-circuit_id="0">
+        data-circuit_id="10">
         <use href="/cogwheels1.svg#cog1"></use>
       </svg>
 
       <svg class="gear" aria-hidden="true" data-size="40" data-x="134" data-y="calc(110% + 49px)"
-        data-speed_multiplier="-0.0563" data-circuit_id="0">
+        data-speed_multiplier="-0.0563" data-circuit_id="10">
         <use href="/cogwheels1.svg#cog2"></use>
       </svg>
 
@@ -104,58 +105,6 @@
   <script type="module" src="/src/main.ts"></script>
 </body>
 
-<div id="auth2" hidden>
-  <div id="auth-backdrop"></div>
-
-  <div id="auth-content">
-
-    <div id="auth-popup">
-      <h2>Login</h2>
-
-      <div id="auth-input-section">
-        <div class="auth-field">
-          <input id="email" name="email" type="email" placeholder=" " autocomplete="email" />
-          <label for="email">Email Address</label>
-        </div>
-
-        <div class="auth-field">
-          <input id="password" name="password" type="password" placeholder=" " autocomplete="current-password" />
-          <label for="password">Password</label>
-        </div>
-
-        <button type="submit" id="auth-login-button">Login</button>
-      </div>
-
-      <p>
-        Noch kein Account?
-        <button type="button" id="register-button">Registrieren</button>
-      </p>
-
-      <!--<svg class="gear" aria-hidden="true" data-size="120" data-x="0%" data-y="-10px" data-speed_multiplier="0.0063"
-        data-circuit_id="2">
-        <use href="/cogwheels1.svg#cog2"></use>
-      </svg>-->
-    </div>
-
-    <div id="auth-gears">
-      <svg class="gear" aria-hidden="true" data-size="60" data-x="96.5%" data-y="20%" data-speed_multiplier="-0.0563"
-        data-circuit_id="2">
-        <use href="/cogwheels1.svg#cog2"></use>
-      </svg>
-
-      <svg class="gear" aria-hidden="true" data-size="60" data-x="97%" data-y="99%" data-speed_multiplier="0.02885"
-        data-circuit_id="2">
-        <use href="/cogwheels1.svg#cog2"></use>
-      </svg>
-
-
-      <svg class="gear" aria-hidden="true" data-size="140" data-x="10px" data-y="calc(100% - 90px)"
-        data-speed_multiplier="-0.0263" data-circuit_id="2">
-        <use href="/cogwheels1.svg#cog1"></use>
-      </svg>
-    </div>
-  </div>
-</div>
 
 
 </html>

@@ -1,0 +1,51 @@
+<div id="auth-content">
+  <div id="auth-popup">
+    <h2>Login</h2>
+
+    <div id="auth-input-section">
+      <form id="login-form" autocomplete="on">
+        <div class="auth-field">
+          <input id="email" name="username" type="email" placeholder=" " autocomplete="section-login username"
+            required />
+          <label for="email">Email Address</label>
+        </div>
+
+        <div class="auth-field">
+          <input id="password" name="password" type="password" placeholder=" "
+            autocomplete="section-login current-password" required />
+          <label for="password">Password</label>
+        </div>
+
+        <button type="submit" id="auth-submit-button">
+          Login
+        </button>
+
+        <div id="error-section"></div>
+      </form>
+    </div>
+
+    <p>
+      Noch kein Account? <br>
+      <button type="button" id="switch-button"><a href="/register">Registrieren</a></button>
+    </p>
+
+  </div>
+
+  <div id="auth-gears">
+    <svg class="gear" aria-hidden="true" data-size="60" data-x="97.5%" data-y="40%" data-speed_multiplier="-0.0563"
+      data-circuit_id="-2">
+      <use href="/cogwheels1.svg#cog2"></use>
+    </svg>
+
+    <svg class="gear" aria-hidden="true" data-size="60" data-x="63%" data-y="-2%" data-speed_multiplier="0.02885"
+      data-circuit_id="-2">
+      <use href="/cogwheels1.svg#cog2"></use>
+    </svg>
+
+
+    <svg class="gear" aria-hidden="true" data-size="140" data-x="10px" data-y="calc(70% - 90px)"
+      data-speed_multiplier="-0.0263" data-circuit_id="-2">
+      <use href="/cogwheels1.svg#cog1"></use>
+    </svg>
+  </div>
+</div>

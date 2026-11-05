@@ -1,7 +1,8 @@
 @import url("gears/gears.css");
 @import "top-nav-bar.css";
 
-@import url("auth/auth.css");
+@import url("pages/auth/auth.css");
+@import url("pages/auth/profile.css");
 
 :root {
   --text: #6b6375;
@@ -41,7 +42,7 @@
     --bg: #16171d;
     --border: #2e303a;
     --code-bg: #1f2028;
-    --accent: #30245c;
+    --accent: #204f3f;
     --accent-bg: rgba(30, 30, 35, 1.0);
     --accent-border: rgba(15, 20, 50, 1.0);
     --social-bg: rgba(47, 48, 58, 0.5);
@@ -196,4 +197,15 @@ p {
       box-sizing: border-box;
     }
   }
+}
+
+
+.page {
+  flex: 100%;
+  width: 100%;
+  align-content: center;
+}
+
+#auth-popup {
+  #error-section {}
 }

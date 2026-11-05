@@ -1,0 +1,49 @@
+#profile-content {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+
+  pointer-events: none;
+}
+
+
+#profile-popup {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 450px;
+  padding: 70px 65px;
+
+  box-sizing: border-box;
+
+  pointer-events: auto;
+
+  background: var(--accent-bg);
+
+  clip-path: polygon(28% 99%, 9% 100%, 2% 99%, 0% 90%,
+      2% 70%, 0% 50%, 1% 30%, 0% 16%,
+      3% 0%, 9% 0%, 27% 1%, 38% 0%,
+      51% 0%, 68% 2%, 76% 0%, 90% 1%,
+      97% 1%, 100% 7%, 100% 18%, 99% 23%,
+      100% 39%, 99% 48%, 100% 66%, 97% 82%,
+      100% 96%, 90% 100%, 72% 100%, 46% 100%);
+}
+
+
+#profile-popup>h2 {
+  text-align: center;
+}
+
+#profile-popup h1 {
+  margin: 0 0 45px;
+
+  color: var(--text-h);
+
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
