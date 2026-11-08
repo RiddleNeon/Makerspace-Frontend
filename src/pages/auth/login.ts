@@ -27,7 +27,7 @@ export async function initAuthPage() {
     try {
       await login(email, password);
       await applySessionChrome();
-      await navigate("/");
+      navigate("/");
     } catch (error: any) {
       let errorSection = document.querySelector<HTMLDivElement>("#error-section")!;
       errorSection.innerHTML = error.message;

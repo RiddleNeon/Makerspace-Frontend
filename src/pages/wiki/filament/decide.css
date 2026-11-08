@@ -1,0 +1,20 @@
+#filament-decide-page {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #idea-submit-button {
+    width: 50px;
+  }
+
+  #result-box {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #safety-box {
+    color: red
+  }
+}

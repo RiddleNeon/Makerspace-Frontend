@@ -17,18 +17,29 @@ import aboutThisSitePage from "./pages/about-us/about-this-site.html?raw";
 import cookiesPage from "./pages/privacy/cookies.html?raw";
 import privacyPage from "./pages/privacy/privacy-notice.html?raw";
 
+import cookiePage from "./pages/debug/debug.html?raw";
+
+import wikiFilamentDecide from "./pages/wiki/filament/decide.html?raw";
+import { initDecidePage } from "./pages/wiki/filament/decide";
 
 const pages: Record<string, string> = {
   "/": homePage,
   "/login": loginPage,
   "/register": registerPage,
   "/profile": profilePage,
+
   "/our-setup": setupPage,
   "/projects": projectsPage,
+
+  "/wiki/filament/decide": wikiFilamentDecide,
+
   "/about-us": aboutUsPage,
   "/about-this-site": aboutThisSitePage,
+
   "/cookies": cookiesPage,
-  "/privacy": privacyPage
+  "/privacy": privacyPage,
+
+  "/debug": cookiePage
 };
 
 export async function renderPage() {
@@ -64,6 +75,8 @@ export async function renderPage() {
       return renderPage();
     }
     initProfilePage();
+  } else if (path === "/wiki/filament/decide") {
+    initDecidePage();
   } else {
     initGears();
   }

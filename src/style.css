@@ -4,6 +4,8 @@
 
 @import url("pages/auth/auth.css");
 @import url("pages/about-us/about-this-site.css");
+@import url("pages/debug/debug.css");
+@import url("pages/wiki/filament/decide.css");
 
 :root {
   --text: #6b6375;
@@ -192,4 +194,63 @@ p {
     height: 1.1em;
     vertical-align: middle;
   }
+}
+
+.btn {
+  display: block;
+
+  width: 100%;
+  height: 46px;
+
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--accent);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 15px var(--accent-bg);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+
+.btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px var(--accent-bg);
+}
+
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+
+  box-shadow:
+    0 3px 8px var(--accent-bg);
+}
+
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btn:disabled {
+  background-color: #414141;
 }
