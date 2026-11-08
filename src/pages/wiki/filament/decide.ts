@@ -51,39 +51,37 @@ function showResults(filamentType: string, safety: number) {
 
   if (filamentResultElement) {
     filamentResultElement.textContent = filamentType;
-    console.log("set f")
   }
 
-  console.log("safety: " + safety);
-  if (safety <= 0.6) {
-    if (safetyResultElement) {
-      let safetyDescription;
-      if (safety < 0.15) {
-        safetyDescription = "Nicht drucken! Bei diesem Druck können sehr hohe schäden entstehen!";
-      } else if (safety < 0.3) {
-        safetyDescription = "Bitte nicht drucken! Bei diesem Druck können schäden und Sicherheitsprobleme entstehen!";
-      } else if (safety < 0.45) {
-        safetyDescription = "Bitte drucken vermeiden! Der druck könnte zu schäden führen!"
-      } else {
-        safetyDescription = "Achtung! Dieser druck könnte gefährlich sein!";
-      }
-      safetyResultElement.textContent = safetyDescription;
-      console.log("set s to " + safetyResultElement.textContent);
+  if (safetyResultElement) {
+    let safetyDescription = "";
+    if (safety < 0.15) {
+      safetyDescription = "Nicht drucken! Bei diesem Druck können sehr hohe schäden entstehen!";
+    } else if (safety < 0.3) {
+      safetyDescription = "Bitte nicht drucken! Bei diesem Druck können schäden und Sicherheitsprobleme entstehen!";
+    } else if (safety < 0.45) {
+      safetyDescription = "Bitte drucken vermeiden! Der Druck könnte zu schäden führen!"
+    } else if (safety <= 0.6) {
+      safetyDescription = "Achtung! Dieser Druck könnte gefährlich sein!";
     }
+    safetyResultElement.textContent = safetyDescription;
   }
 }
 
 let taskPending = false;
+taskPending;
 
 async function askFilamentType(idea: string) {
   let body = JSON.stringify({ idea });
   let errorBox = document.querySelector<HTMLSpanElement>(
     "#error-box",
   );
+
   if (!(await authClient.getSession()).data?.session.token) {
     if (errorBox) errorBox.textContent = "Du musst dich anmelden um diese Funktion zu nutzen!";
     console.log(errorBox);
     return;
+
   } else if (errorBox) {
     errorBox.textContent = "";
   }

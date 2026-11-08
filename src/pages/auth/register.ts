@@ -111,7 +111,7 @@ export async function initAuthPage() {
 
         await register(email, password, name);
         await applySessionChrome();
-        await navigate("/");
+        navigate("/");
       } catch (error: any) {
         showError(error.message || "Registrierung fehlgeschlagen.");
         submitButton.disabled = false;
