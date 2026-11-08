@@ -1,13 +1,4 @@
-#profile-content {
-  position: absolute;
-  inset: 0;
-  z-index: 100;
-
-  pointer-events: none;
-}
-
-
-#profile-popup {
+.popup {
   position: absolute;
 
   left: 50%;
@@ -34,11 +25,11 @@
 }
 
 
-#profile-popup>h2 {
+.popup>h2 {
   text-align: center;
 }
 
-#profile-popup h1 {
+.popup h1 {
   margin: 0 0 45px;
 
   color: var(--text-h);

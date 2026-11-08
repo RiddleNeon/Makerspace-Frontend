@@ -1,20 +1,9 @@
-import { createAuthClient } from "better-auth/client";
-import { advanceCircuit } from "../../gears/gears";
+import { BACKEND_URL, authClient } from "../../auth/client";
+import { bindGearInput } from "../../gears/bind-input";
+import { navigate } from "../../router";
+import { applySessionChrome } from "../../session";
 
 console.log("RUNNING");
-const BACKEND_URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:8787"
-    : "https://makerspace-backend.arcegamer2022.workers.dev";
-
-export const authClient = createAuthClient({
-  baseURL: BACKEND_URL,
-});
-
-let lastEmailFieldTextLength = 0;
-let lastPasswordFieldTextLength = 0;
-let lastPasswordConfirmationFieldTextLength = 0;
-let lastNameFieldTextLength = 0;
 
 let currentStep = 1;
 
@@ -68,6 +57,14 @@ export async function initAuthPage() {
         submitButton.disabled = true;
         submitButton.innerText = "Prüfe E-Mail...";
 
+        const isValid = validateEmail(email);
+        if (!isValid) {
+          showError("Diese Email ist keine valide Email-Adresse.");
+          submitButton.disabled = false;
+          submitButton.innerText = "Weiter";
+          return;
+        }
+
         const isAvailable = await checkEmailAvailability(email);
         if (!isAvailable) {
           showError("Diese E-Mail-Adresse ist bereits vergeben.");
@@ -88,7 +85,6 @@ export async function initAuthPage() {
         submitButton.disabled = false;
         submitButton.innerText = "Weiter";
       }
-
     } else if (currentStep === 2) {
       const email = emailInputField?.value.trim() || "";
       const password = passwordInputField?.value || "";
@@ -109,14 +105,13 @@ export async function initAuthPage() {
         return;
       }
 
-
-
-
       try {
         submitButton.disabled = true;
         submitButton.innerText = "Registriere...";
 
         await register(email, password, name);
+        await applySessionChrome();
+        await navigate("/");
       } catch (error: any) {
         showError(error.message || "Registrierung fehlgeschlagen.");
         submitButton.disabled = false;
@@ -157,34 +152,10 @@ export async function initAuthPage() {
     }
   });
 
-  // Gear-Animationen
-  emailInputField?.addEventListener("input", () => {
-    const len = emailInputField.value.length;
-    const diff = lastEmailFieldTextLength - len;
-    lastEmailFieldTextLength = len;
-    advanceCircuit(-4, diff * 140, Math.sqrt(Math.abs(diff)) * 85);
-  });
-
-  passwordInputField?.addEventListener("input", () => {
-    const len = passwordInputField.value.length;
-    const diff = lastPasswordFieldTextLength - len;
-    lastPasswordFieldTextLength = len;
-    advanceCircuit(-3, diff * 140, Math.sqrt(Math.abs(diff)) * 85);
-  });
-
-  passwordConfirmationInputField?.addEventListener("input", () => {
-    const len = passwordConfirmationInputField.value.length;
-    const diff = lastPasswordConfirmationFieldTextLength - len;
-    lastPasswordConfirmationFieldTextLength = len;
-    advanceCircuit(-3, diff * 140, Math.sqrt(Math.abs(diff)) * 85);
-  });
-
-  nameInputField?.addEventListener("input", () => {
-    const len = nameInputField.value.length;
-    const diff = lastNameFieldTextLength - len;
-    lastNameFieldTextLength = len;
-    advanceCircuit(-4, diff * 140, Math.sqrt(Math.abs(diff)) * 85);
-  });
+  bindGearInput(emailInputField, -4);
+  bindGearInput(passwordInputField, -3);
+  bindGearInput(passwordConfirmationInputField, -3);
+  bindGearInput(nameInputField, -4);
 }
 
 async function checkEmailAvailability(email: string): Promise<boolean> {
@@ -192,7 +163,7 @@ async function checkEmailAvailability(email: string): Promise<boolean> {
   const request = new Request(`${BACKEND_URL}/api/auth/check/email`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body
+    body,
   });
 
   console.log(`body: ${body}`);
@@ -207,7 +178,7 @@ async function checkNameAvailability(email: string): Promise<boolean> {
   const request = new Request(`${BACKEND_URL}/api/auth/check/name`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body
+    body,
   });
 
   console.log(`body: ${body}`);
@@ -216,7 +187,6 @@ async function checkNameAvailability(email: string): Promise<boolean> {
   const data = await response.json();
   return data.available;
 }
-
 
 async function register(email: string, password: string, name: string) {
   const { data, error } = await authClient.signUp.email({
@@ -232,4 +202,11 @@ async function register(email: string, password: string, name: string) {
 
   console.log("Registration successful!", data);
   return data;
+}
+
+
+const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{3,}\.[a-zA-Z]{2,}$/;
+
+function validateEmail(email: string): boolean {
+  return emailRegex.test(email);
 }

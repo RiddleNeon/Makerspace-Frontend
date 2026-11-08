@@ -1,22 +1,18 @@
-import { createAuthClient } from "better-auth/client";
-import { advanceCircuit } from "../../gears/gears";
-import { hide, navigate, show } from "../../main";
+import { authClient } from "../../auth/client";
+import { bindGearInput } from "../../gears/bind-input";
+import { navigate } from "../../router";
+import { applySessionChrome } from "../../session";
 
-const BACKEND_URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:8787"
-    : "https://makerspace-backend.arcegamer2022.workers.dev";
-
-export const authClient = createAuthClient({
-  baseURL: BACKEND_URL,
-});
-
-let lastEmailFieldTextLength = 0;
-let lastPasswordFieldTextLength = 0;
-
+export { authClient };
 
 export async function initAuthPage() {
   const loginButton = document.querySelector<HTMLAnchorElement>("#auth-submit-button");
+  const emailInputField = document.querySelector<HTMLInputElement>(
+    "#auth-input-section>#login-form>.auth-field>#email",
+  );
+  const passwordInputField = document.querySelector<HTMLInputElement>(
+    "#auth-input-section>#login-form>.auth-field>#password",
+  );
 
   loginButton?.addEventListener("click", async (event) => {
     event.preventDefault();
@@ -28,28 +24,21 @@ export async function initAuthPage() {
       return;
     }
 
-
     try {
       await login(email, password);
-      hide(document.querySelectorAll('.not-logged-in'));
-      show(document.querySelectorAll('.logged-in'));
-      await navigate("/profile");
-
+      await applySessionChrome();
+      await navigate("/");
     } catch (error: any) {
       let errorSection = document.querySelector<HTMLDivElement>("#error-section")!;
       errorSection.innerHTML = error.message;
     }
   });
 
-  const emailInputField = document.querySelector<HTMLInputElement>("#auth-input-section>#login-form>.auth-field>#email");
-  const passwordInputField = document.querySelector<HTMLInputElement>("#auth-input-section>#login-form>.auth-field>#password");
-
-
   emailInputField?.addEventListener("keyup", (event) => {
     if (event.key !== "Enter") return;
 
     passwordInputField?.focus();
-  })
+  });
 
   passwordInputField?.addEventListener("keydown", async (event) => {
     if (event.key !== "Enter") return;
@@ -58,19 +47,8 @@ export async function initAuthPage() {
     loginButton?.click();
   });
 
-  emailInputField?.addEventListener("input", () => {
-    let currentCharLen = emailInputField.value.length;
-    let diff = lastEmailFieldTextLength - currentCharLen;
-    lastEmailFieldTextLength = currentCharLen;
-    advanceCircuit(-2, diff * 140, Math.sqrt(Math.abs(diff)) * 85);
-  })
-
-  passwordInputField?.addEventListener("input", () => {
-    let currentCharLen = passwordInputField.value.length;
-    let diff = lastPasswordFieldTextLength - currentCharLen;
-    lastPasswordFieldTextLength = currentCharLen;
-    advanceCircuit(-2, diff * 140, Math.sqrt(Math.abs(diff)) * 85);
-  })
+  bindGearInput(emailInputField, -2);
+  bindGearInput(passwordInputField, -2);
 }
 
 async function login(email: string, password: string) {

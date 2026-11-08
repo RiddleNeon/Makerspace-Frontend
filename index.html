@@ -55,7 +55,7 @@
           <h1>Makerspace</h1>
         </li>
 
-        <li class="logged-in"><a href="/profile">Profil</a></li>
+        <li class="logged-in" style="display: none;"><a href="/profile">Profil</a></li>
         <li class="not-logged-in"><a href="/login" id="nav-bar-auth-login-button">Login</a></li>
         <li class="not-logged-in"><a href="/register">Registrieren</a></li>
       </ul>
@@ -78,8 +78,6 @@
 
 
     <section id="center">
-      <div class="hero"> <!-- TODO: add imgs here -->
-      </div>
     </section>
 
 
@@ -87,17 +85,13 @@
 
     <section id="socials">
       <div id="social">
-        Join the community
-        <ul>
-          <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation"
+        <div id="credits-row">
+          <span class="label">Diese Seite wurde von RiddleNeon erstellt<a href="/about-this-site"><svg class="icon"
                 aria-hidden="true">
-                <use href="/icons.svg#github-icon"></use>
-              </svg>GitHub</a></li> <!-- TODO: use working links -->
-          <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation"
-                aria-hidden="true">
-                <use href="/icons.svg#discord-icon"></use>
-              </svg>Discord</a></li>
-        </ul>
+                <use href="/icons.svg#info-icon"></use>
+              </svg></a>
+          </span>
+        </div>
       </div>
 
     </section>

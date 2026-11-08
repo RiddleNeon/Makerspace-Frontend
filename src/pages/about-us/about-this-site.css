@@ -1,0 +1,39 @@
+#site-info-page {
+  padding: 50px;
+}
+
+#yap-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 50px;
+
+  #long-yap {
+    margin: 0 60px;
+    padding: 16px;
+    border: thick solid black;
+  }
+
+  #tldr {
+    margin-right: 80px;
+
+    text-align: left;
+    align-self: flex-end;
+    border: thick solid black;
+
+    #header {
+      background-color: white;
+      padding: 10px;
+      width: fit-content;
+
+      strong {
+        padding: 5px;
+      }
+    }
+
+    #content {
+      margin: 10px;
+    }
+
+  }
+}
